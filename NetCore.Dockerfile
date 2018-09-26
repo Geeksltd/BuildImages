@@ -55,3 +55,5 @@ RUN npm install -g --prefix c:\tools\typescript typescript && `
 # Install WebPack
 RUN npm install -g --prefix c:\tools\webpack webpack && `
 	 setx PATH "c:\tools\webpack;%PATH%";
+
+OnBuild COPY Nuget.Config c:\
