@@ -5,7 +5,7 @@ FROM microsoft/windowsservercore:1803 AS installer-env
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-# Retrieve node and git
+# Install nodejs
 ENV NODE_VERSION 6.13.0
 ENV NODE_DOWNLOAD_SHA 3d3d72c5c93a50d5a19f65f0de196b5237792a99b89fac2b61e62da4f566c842
 
@@ -55,6 +55,9 @@ RUN npm install -g --prefix c:\tools\typescript typescript && `
 # Install WebPack
 RUN npm install -g --prefix c:\tools\webpack webpack && `
 	 setx PATH "c:\tools\webpack;%PATH%";
+
+# Install replace-in-file
+RUN dotnet tool install -g replace-in-file
 
 COPY Commands c:\Commands
 RUN setx PATH "c:\Commands;%PATH%";

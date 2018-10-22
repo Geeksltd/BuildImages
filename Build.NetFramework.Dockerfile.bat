@@ -1,1 +1,1 @@
-docker build -t geeksnetframeworkbuild -f NetFramework.Dockerfile .
+docker build -t geeksbasebuild -f NetFramework.Dockerfile .

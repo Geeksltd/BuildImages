@@ -49,5 +49,8 @@ RUN npm install -g --prefix c:\tools\nuget nuget && `
 RUN npm install -g --prefix c:\tools\dotnetcore-sdk dotnet-sdk-2.1-win-x64 && `
 	setx PATH "c:\tools\dotnetcore-sdk;%PATH%"
 
+# Install replace-in-file
+RUN dotnet tool install -g replace-in-file
+
 # Add the Geeks.MS nuget source
 RUN nuget sources add -Name "GeeksMS" -Source "http://nuget.geeksms.uat.co/nuge"
