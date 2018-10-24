@@ -23,16 +23,32 @@ RUN npm install -g typescript
 
 # Install WebPack
 RUN yarn global add webpack && \
-    setx PATH "%APPDATA%\yarn\bin\;%PATH%";
+    setx PATH "%LOCALAPPDATA%\yarn\bin\;%PATH%";
+
+# Install Bower
+RUN choco install bower -y && \
+    setx PATH "%ProgramData%\chocolatey\lib\bower\tools\;%PATH%";
 
 # Install MSBuild
 ADD https://aka.ms/vs/15/release/vs_buildtools.exe C:\\TEMP\\vs_buildtools.exe
-RUN C:\\TEMP\\vs_buildtools.exe --quiet --wait --norestart --nocache --installPath c:\\BuildTools && \
+RUN C:\TEMP\vs_buildtools.exe --quiet --wait --norestart --nocache --installPath c:\\BuildTools && \
     setx PATH "c:\BuildTools\MSBuild\15.0\Bin\;%PATH%";
 
 # Install Nuget
 RUN npm install -g --prefix c:\tools\nuget nuget && \
-	setx PATH "c:\tools\nuget\node_modules\nuget\bin;%PATH%"
+	setx PATH "c:\tools\nuget\node_modules\nuget\bin\;%PATH%"
+
+# Install Nuget
+RUN choco install git.install -y && \
+    setx PATH "%ProgramFiles%\Git\bin\;%PATH%"
 
 # Add the Geeks.MS nuget source
 RUN nuget sources add -Name "GeeksMS" -Source "http://nuget.geeksms.uat.co/nuge"
+COPY NuGet.Config .
+
+COPY Commands c:\\Commands
+RUN setx PATH "c:\Commands;%PATH%"
+
+COPY GAC c:\\GAC
+RUN nuget restore c:\\GAC -PackagesDirectory c:\\Windows\\Assembly
+
