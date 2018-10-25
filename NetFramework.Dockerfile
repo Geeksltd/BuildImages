@@ -1,5 +1,5 @@
 FROM microsoft/dotnet-framework-build as build
-
+WORKDIR app
 # Install Chocolatey
 RUN powershell -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && \
     setx PATH "%ProgramData%\chocolatey\bin\;%PATH%";
@@ -8,26 +8,8 @@ RUN choco install dotnetcore-sdk -y && \
     setx PATH "%ProgramData%\dotnet\;%PATH%";
 
 # Install replace-in-file
-RUN dotnet tool install -g replace-in-file
-
-# Install NodeJs
-RUN choco install nodejs.install -y && \
-    setx PATH "%APPDATA%\npm\;%PATH%";
-
-# Install Yarn
-RUN npm install yarn --prefix "%ProgramFiles(x86)%\yarn" && \
-    setx PATH "%ProgramFiles(x86)%\yarn\;%PATH%";
-
-# Install TypeScript
-RUN npm install -g typescript
-
-# Install WebPack
-RUN yarn global add webpack && \
-    setx PATH "%LOCALAPPDATA%\yarn\bin\;%PATH%";
-
-# Install Bower
-RUN choco install bower -y && \
-    setx PATH "%ProgramData%\chocolatey\lib\bower\tools\;%PATH%";
+RUN dotnet tool install -g msharp-build && \
+    msharp-build -tools
 
 # Install MSBuild
 ADD https://aka.ms/vs/15/release/vs_buildtools.exe C:\\TEMP\\vs_buildtools.exe
