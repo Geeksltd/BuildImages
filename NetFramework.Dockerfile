@@ -46,9 +46,8 @@ RUN choco install git.install -y && \
 RUN nuget sources add -Name "GeeksMS" -Source "http://nuget.geeksms.uat.co/nuge"
 COPY NuGet.Config .
 
-COPY Commands c:\\Commands
-RUN setx PATH "c:\Commands;%PATH%"
-
 COPY GAC c:\\GAC
 RUN nuget restore c:\\GAC -PackagesDirectory c:\\Windows\\Assembly
 
+COPY Commands c:\\Commands
+RUN setx PATH "c:\Commands;%PATH%"
