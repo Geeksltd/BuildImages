@@ -35,10 +35,3 @@ COPY Commands c:\\Commands
 RUN setx PATH "c:\Commands;%PATH%"
 
 WORKDIR app
-ONBUILD COPY .\\M#\\Model\\#Model.csproj .\\M#\\Model\\#Model.csproj
-ONBUILD RUN dotnet restore
-ONBUILD COPY .\\M#\\UI\\#UI.csproj .\\M#\\UI\\#UI.csproj
-ONBUILD RUN dotnet restore
-ONBUILD COPY .\\Website\\Website.csproj .\\Website\\Website.csproj
-ONBUILD RUN dotnet restore
-ONBUILD COPY . .
