@@ -25,7 +25,6 @@ RUN choco install git.install -y && \
 
 # Add the Geeks.MS nuget source
 RUN nuget sources add -Name "GeeksMS" -Source "http://nuget.geeksms.uat.co/nuge"
-COPY NuGet.Config .
 
 COPY GAC c:\\GAC
 RUN nuget restore c:\\GAC -PackagesDirectory c:\\Windows\\Assembly
