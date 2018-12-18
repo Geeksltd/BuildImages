@@ -1,3 +1,1 @@
-remove-gcop-references 
-
-call .\Build.bat
+git clean -fdx && remove-gcop-references && call Build.bat	
