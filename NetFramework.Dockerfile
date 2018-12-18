@@ -30,9 +30,16 @@ COPY NuGet.Config .
 COPY GAC c:\\GAC
 RUN nuget restore c:\\GAC -PackagesDirectory c:\\Windows\\Assembly
 
+# Empty the packages directory so that it can be mounted to the host's packages dir.
 RUN rmdir "c:\\users\\containeradministrator\\.nuget\\packages" /s /q
 
 COPY Commands c:\\Commands
 RUN setx PATH "c:\Commands;%PATH%"
 
-WORKDIR app
+ONBUILD ARG ACCELERATE_PACKAGE_FILENAME
+ONBUILD RUN dotnet tool update msharp-build
+ONBUILD WORKDIR app
+ONBUILD Copy $ACCELERATE_PACKAGE_FILENAME .
+ONBUILD RUN "accelerate-package-restore -restore %ACCELERATE_PACKAGE_FILENAME%"
+ONBUILD Copy . .
+ONBUILD RUN build-project
