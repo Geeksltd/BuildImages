@@ -6,14 +6,15 @@ RUN powershell -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "ie
 
 RUN choco install dotnetcore-sdk -y && \
     setx PATH "%ProgramData%\dotnet\;%PATH%;";
-# Install replace-in-file
-RUN dotnet tool install -g msharp-build 
-RUN msharp-build -tools
 
 # Install MSBuild
 ADD https://aka.ms/vs/15/release/vs_buildtools.exe C:\\TEMP\\vs_buildtools.exe
 RUN C:\TEMP\vs_buildtools.exe --quiet --wait --norestart --nocache --installPath c:\\BuildTools && \
     setx PATH "c:\BuildTools\MSBuild\15.0\Bin\;%PATH%";
+
+# Install replace-in-file
+RUN dotnet tool install -g msharp-build 
+RUN msharp-build -tools
 
 # Install Nuget
 RUN npm install -g --prefix c:\tools\nuget nuget && \
@@ -30,16 +31,19 @@ COPY NuGet.Config .
 COPY GAC c:\\GAC
 RUN nuget restore c:\\GAC -PackagesDirectory c:\\Windows\\Assembly
 
-# Empty the packages directory so that it can be mounted to the host's packages dir.
-RUN rmdir "c:\\users\\containeradministrator\\.nuget\\packages" /s /q
 
 COPY Commands c:\\Commands
 RUN setx PATH "c:\Commands;%PATH%"
 
+
 ONBUILD ARG ACCELERATE_PACKAGE_FILENAME
-ONBUILD RUN dotnet tool update msharp-build
 ONBUILD WORKDIR app
 ONBUILD Copy $ACCELERATE_PACKAGE_FILENAME .
 ONBUILD RUN "accelerate-package-restore -restore %ACCELERATE_PACKAGE_FILENAME%"
+ONBUILD WORKDIR ../references
+ONBUILD Copy ./**/*.csproj ./
+ONBUILD Copy ./**/**/*.csproj ./
+ONBUILD RUN restore-all-packages
+ONBUILD WORKDIR ../app
 ONBUILD Copy . .
 ONBUILD RUN build-project
