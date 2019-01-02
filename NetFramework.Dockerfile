@@ -35,15 +35,13 @@ RUN nuget restore c:\\GAC -PackagesDirectory c:\\Windows\\Assembly
 COPY Commands c:\\Commands
 RUN setx PATH "c:\Commands;%PATH%"
 
-
-ONBUILD ARG ACCELERATE_PACKAGE_FILENAME
 ONBUILD WORKDIR app
-ONBUILD Copy $ACCELERATE_PACKAGE_FILENAME .
-ONBUILD RUN "accelerate-package-restore -restore %ACCELERATE_PACKAGE_FILENAME%"
-ONBUILD WORKDIR ../references
-ONBUILD Copy ./**/*.csproj ./
-ONBUILD Copy ./**/**/*.csproj ./
-ONBUILD RUN restore-all-packages
-ONBUILD WORKDIR ../app
-ONBUILD Copy . .
+ONBUILD COPY ./M#/Model/#Model.csproj ./M#/Model/
+ONBUILD RUN dotnet restore ./M#/Model/#Model.csproj
+ONBUILD COPY ./Domain/Domain.csproj ./Domain/
+ONBUILD COPY ./M#/UI/#UI.csproj ./M#/UI/
+ONBUILD RUN dotnet restore ./M#/UI/#UI.csproj
+ONBUILD COPY ./Website/Website.csproj ./Website/
+ONBUILD RUN dotnet restore ./Website/Website.csproj
+ONBUILD COPY . .
 ONBUILD RUN build-project
