@@ -1,1 +1,1 @@
-remove-gcop-references && call Build.bat	
+call Build.bat	
