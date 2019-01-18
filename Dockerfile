@@ -13,7 +13,7 @@ RUN C:\TEMP\vs_buildtools.exe --quiet --wait --norestart --nocache --installPath
     setx PATH "c:\BuildTools\MSBuild\15.0\Bin\;%PATH%";
 
 # Install replace-in-file
-RUN dotnet tool install -g msharp-build 
+RUN dotnet tool install -g msharp-build --version 1.1.140
 RUN msharp-build -tools
 
 # Install Nuget
