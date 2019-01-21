@@ -12,7 +12,7 @@ ADD https://aka.ms/vs/15/release/vs_buildtools.exe C:\\TEMP\\vs_buildtools.exe
 RUN C:\TEMP\vs_buildtools.exe --quiet --wait --norestart --nocache --installPath c:\\BuildTools && \
     setx PATH "c:\BuildTools\MSBuild\15.0\Bin\;%PATH%";
 
-# Install replace-in-file
+# Install msharp-build
 RUN dotnet tool install -g msharp-build --version 1.1.140
 RUN msharp-build -tools
 
