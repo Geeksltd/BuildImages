@@ -45,4 +45,4 @@ ONBUILD RUN dotnet restore ./M#/Model/#Model.csproj
 ONBUILD RUN dotnet restore ./M#/UI/#UI.csproj
 ONBUILD RUN dotnet restore ./Website/Website.csproj
 ONBUILD COPY . .
-ONBUILD RUN build-project
+ONBUILD RUN msharp-build
