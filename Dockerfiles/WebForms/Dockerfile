@@ -1,6 +1,6 @@
 FROM geeksltd/msharp-build:latest
-ONBUILD COPY ./M#/Model/*.config ./M#/Model/
-ONBUILD COPY ./Domain/*.config ./Domain/
+ONBUILD COPY ./M#/Model/packages.config ./M#/Model/
+ONBUILD COPY ./Domain/packages.config ./Domain/
 ONBUILD COPY ./M#/UI/packages.config ./M#/UI/
 ONBUILD COPY ./Website/packages.config ./Website/
 ONBUILD RUN nuget restore ./M#/Model -PackagesDirectory ..\\..\\packages
