@@ -1,1 +1,0 @@
-docker build -t geeksltd/msharp-webforms-build:1.0 .
