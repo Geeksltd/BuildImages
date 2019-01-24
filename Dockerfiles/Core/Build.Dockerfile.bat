@@ -1,0 +1,1 @@
+docker build -t geeksltd/msharp-core-build:1.00 .
