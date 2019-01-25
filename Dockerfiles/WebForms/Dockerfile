@@ -1,4 +1,4 @@
-FROM geeksltd/msharp-build:latest
+FROM geeksltd/msharp-build:1.01
 ONBUILD COPY ./M#/Model/packages.config ./M#/Model/
 ONBUILD COPY ./Domain/packages.config ./Domain/
 ONBUILD COPY ./M#/UI/packages.config ./M#/UI/
