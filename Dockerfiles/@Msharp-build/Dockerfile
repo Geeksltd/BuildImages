@@ -1,5 +1,6 @@
-FROM microsoft/dotnet-framework-build as build
+FROM microsoft/dotnet-framework:4.7.2-sdk
 
+SHELL ["cmd", "/S", "/C"]
 # Install Chocolatey
 RUN powershell -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && \
     setx PATH "%ProgramData%\chocolatey\bin\;%PATH%;";
@@ -13,7 +14,8 @@ RUN C:\TEMP\vs_buildtools.exe --quiet --wait --norestart --nocache --installPath
     setx PATH "c:\BuildTools\MSBuild\15.0\Bin\;%PATH%;";
 
 # Install msharp-build
-RUN dotnet tool install -g msharp-build --version 1.1.140
+RUN dotnet tool install -g msharp-build --version 1.1.140 && \
+    setx PATH "%USERPROFILE%\.dotnet\tools\;%PATH%;";
 RUN msharp-build -tools
 
 # Install Nuget
@@ -30,7 +32,6 @@ COPY NuGet.Config .
 
 COPY GAC c:\\GAC
 RUN nuget restore c:\\GAC -PackagesDirectory c:\\Windows\\Assembly
-
 
 COPY Commands c:\\Commands
 RUN setx PATH "c:\Commands;%PATH%;"
