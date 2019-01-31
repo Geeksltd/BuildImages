@@ -1,4 +1,4 @@
-FROM microsoft/dotnet-framework:4.7.2-sdk
+FROM microsoft/dotnet-framework:4.7.2-sdk-windowsservercore-ltsc2016
 
 SHELL ["cmd", "/S", "/C"]
 # Install Chocolatey
