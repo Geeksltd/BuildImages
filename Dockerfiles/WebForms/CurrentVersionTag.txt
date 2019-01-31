@@ -1,1 +1,1 @@
-geeksltd/msharp-webforms-build:1.04
+geeksltd/msharp-webforms-build:1.05

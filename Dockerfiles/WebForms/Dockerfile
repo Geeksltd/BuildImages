@@ -1,4 +1,4 @@
-FROM geeksltd/msharp-build:1.03
+FROM geeksltd/msharp-build:1.04
 ONBUILD COPY ./M#/Model/packages.config ./M#/Model/
 ONBUILD COPY ./Domain/packages.config ./Domain/
 ONBUILD COPY ./M#/UI/packages.config ./M#/UI/
@@ -9,3 +9,4 @@ ONBUILD RUN nuget restore ./Domain -PackagesDirectory packages
 ONBUILD RUN nuget restore ./Website -PackagesDirectory packages
 ONBUILD COPY . .
 ONBUILD RUN msharp-build
+ONBUILD RUN rmdir -r ./Website/node_modules
