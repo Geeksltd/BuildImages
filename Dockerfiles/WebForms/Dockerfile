@@ -9,4 +9,3 @@ ONBUILD RUN nuget restore ./Domain -PackagesDirectory packages
 ONBUILD RUN nuget restore ./Website -PackagesDirectory packages
 ONBUILD COPY . .
 ONBUILD RUN msharp-build
-ONBUILD RUN rmdir -r Website/node_modules
