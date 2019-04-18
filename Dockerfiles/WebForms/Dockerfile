@@ -9,4 +9,4 @@ ONBUILD RUN nuget restore ./M#/UI -PackagesDirectory packages
 ONBUILD RUN nuget restore ./Domain -PackagesDirectory packages
 ONBUILD RUN nuget restore ./Website -PackagesDirectory packages
 ONBUILD COPY . .
-ONBUILD RUN msharp-build
+ONBUILD RUN if exist Build.bat ( call Build.bat ) else ( msharp-build )
