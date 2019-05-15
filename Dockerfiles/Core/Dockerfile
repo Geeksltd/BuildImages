@@ -1,4 +1,4 @@
-FROM geeksltd/msharp-build:1.04
+FROM geeksltd/msharp-build:1.06
 ONBUILD COPY ./M#/Model/#Model.csproj ./M#/Model/
 ONBUILD COPY ./Domain/Domain.csproj ./Domain/
 ONBUILD COPY ./M#/UI/#UI.csproj ./M#/UI/

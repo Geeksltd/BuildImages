@@ -1,1 +1,1 @@
-geeksltd/msharp-build:1.05
+geeksltd/msharp-build:1.06
