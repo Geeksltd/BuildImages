@@ -2,10 +2,10 @@ FROM microsoft/dotnet-framework:4.7.2-sdk-windowsservercore-ltsc2016
 
 SHELL ["cmd", "/S", "/C"]
 # Install Chocolatey
-RUN powershell -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && \
+RUN powershell -NoProfile -InputFormat None Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) && \
     setx PATH "%ProgramData%\chocolatey\bin\;%PATH%;";
 
-RUN choco install dotnetcore-sdk -y && \
+RUN choco install dotnetcore-sdk --version=2.1.802 -y && \
     setx PATH "%ProgramData%\dotnet\;%PATH%;";
 
 # Install MSBuild
@@ -14,7 +14,7 @@ RUN C:\TEMP\vs_buildtools.exe --quiet --wait --norestart --nocache --installPath
     setx PATH "c:\BuildTools\MSBuild\15.0\Bin\;%PATH%;";
 
 # Install msharp-build
-RUN dotnet tool install -g msharp-build --version 1.1.142 && \
+RUN dotnet tool install -g msharp-build --version 1.1.144 && \
     setx PATH "%USERPROFILE%\.dotnet\tools\;%PATH%;";
 RUN msharp-build -tools
 
