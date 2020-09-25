@@ -1,0 +1,1 @@
+for /r %%i in (.\\*.csproj) do (dotnet restore %%i)

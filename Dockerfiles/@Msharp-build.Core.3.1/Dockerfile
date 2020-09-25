@@ -36,6 +36,11 @@ RUN dotnet tool install -g msharp-build
 RUN nuget sources add -Name "GeeksMS" -Source "http://nuget.geeksms.uat.co/nuge"
 COPY NuGet.Config .
 
+COPY Commands c:\\Commands
+RUN setx PATH "c:\Commands;%PATH%;"
+
+WORKDIR app
+
 ONBUILD COPY ./M#/Model/#Model.csproj ./M#/Model/
 ONBUILD COPY ./Domain/Domain.csproj ./Domain/
 ONBUILD COPY ./M#/UI/#UI.csproj ./M#/UI/
