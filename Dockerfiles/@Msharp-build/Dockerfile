@@ -5,7 +5,7 @@ SHELL ["cmd", "/S", "/C"]
 RUN powershell -NoProfile -InputFormat None Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) && \
     setx PATH "%ProgramData%\chocolatey\bin\;%PATH%;";
 
-RUN choco install dotnetcore-sdk --version=2.1.802 -y && \
+RUN choco install dotnetcore-sdk --version=3.1.402 -y && \
     setx PATH "%ProgramData%\dotnet\;%PATH%;";
 
 # Install MSBuild
