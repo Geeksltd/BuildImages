@@ -8,7 +8,7 @@ RUN apt install nodejs -yq && \
 	apt install npm -yq
 
 # Install Nuget
-RUN apt-get install -yq
+RUN apt-get install nuget -yq
 
 # TypeScript
 RUN npm install -g typescript      
@@ -23,7 +23,7 @@ RUN npm install -g bower
 RUN yarn add global add webpack
 
 # Msharp-Build
-RUN dotnet tool install -g msharp-build --version 1.1.149
+RUN dotnet tool install -g msharp-build --version 1.1.150
 
 # Add the Geeks.MS nuget source
 RUN dotnet nuget add source "http://nuget.geeksms.uat.co/nuge" -n "GeeksMS"
